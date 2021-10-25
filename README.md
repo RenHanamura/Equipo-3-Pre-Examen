@@ -1,2 +1,2 @@
 # Equipo-3-Pre-Examen
-peko
+Práctica Pre examen
