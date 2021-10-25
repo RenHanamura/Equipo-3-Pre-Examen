@@ -1,0 +1,163 @@
+<script>
+var register = Register(prompt("Ingrese la cantidad de estudiantes que desea registrar"))
+options(register);
+
+
+
+function Register(N) {
+
+    let array = [];
+
+    for (let i = 0; i < N; i++) {
+        let male = "M";
+        let female = "F";
+        
+        let sex = prompt("Ingrese el sexo del alumno F/M")
+        while (sex != male && sex != female) {
+            sex = prompt("Expresion no valida por favor ingrese 'F' o 'M'")
+        }
+        
+        
+        let Students = {
+            name: prompt("Introduce el nombre del estudiante"),
+            enrollment: prompt("Introduce el numero de matricula"),
+            group: prompt("Introduce el grupo al que pertenece"),
+            "sex": sex,
+            score: parseFloat(prompt("Ingrese la calificacion del alumno"))
+        }
+        
+        array.push(Students);   
+    }  
+    return array;
+}
+
+function StudentsNum(register) {
+    let n = 0
+    for (let i = 0; i < register.length; i++) {
+        n += 1
+    }
+    return n
+}
+
+function StudentsNumPerSex(register) {
+    let n1 = 0
+    let n2 = 0
+    for (let i = 0; i < register.length; i++) {
+        if (register[i].sex == "F"){
+            n1 += 1
+        } else{
+            n2 += 1
+        }
+
+    }
+
+    let result = "Cantidad de estidiantes hombres: " + n2 + " Cantidad de estudiantes mujeres: " + n1
+    return result;
+}
+
+function SpecificStudet(register) {
+    let Id = prompt("Ingrese el nombre o la matricula del estudiante")
+
+    for (let i = 0; i < register.length; i++) {
+        if (register[i].name == Id || register[i].enrollment == Id) {
+            return register[i]
+        }
+    }
+    
+}
+
+function StudentsPerGroup(register) {
+    let group = prompt("Ingrese el grupo que requisita")
+    let students = []
+    for (let i = 0; i < register.length; i++) {
+        if ((register[i].group) == group) {
+            students.push(register[i])
+        }
+    }
+    let one = StudentsNum(students);
+    let two = StudentsNumPerSex(students);
+    let three = Average(students);
+    let four = SpecificStudet(students);
+
+    let result = {
+        "Cantidad de estudiantes": one,
+        "Cantidad de estudiantes por sexo": two,
+        "Promedio de calificaciones": three,
+        "Estudiante especifico": four
+    }
+    return result;
+}
+
+function MoreThanOne(register) {
+   let students = []
+   let student = ""
+   let students_num = parseInt(prompt("Ingrese la cantidad de estudiantes que desea ver"))
+   for (let i = 0; i < students_num; i++) {
+       student = SpecificStudet(register);
+       students.push(student)
+       
+   }
+   return students; 
+}
+
+function Average(register) {
+    let average = 0
+    for (let i = 0; i < register.length; i++) {
+        average += register[i].score
+    }
+    average = average / register.length
+    return average;
+}
+    
+function options(register) {
+    alert("1. Cantidad de estudiantes registrados" 
+          + " " +  "2. Cantidad de estudiantes por sexo"
+          + " " +  "3. Promedio total"
+          + " " +  "4. Estudiante especifico"
+          + " " +  "5. Estudiantes especificos"
+          + " " +  "6. Estudiantes por grupos"
+          + " " +  "7. Salir")
+   
+    
+    let flag = true
+
+    while (flag == true) {
+        let option = parseInt(prompt("Ingrese la opcion que desea ver"))
+        switch (option) {
+            case 1:
+                console.log("Cantidad de estudiantes registrados: " + StudentsNum(register))
+                break;
+            case 2:
+                console.log(StudentsNumPerSex(register))
+                break;
+            case 3:
+                console.log("Promedio total: " + Average(register))
+                break;
+            case 4:
+                console.log(SpecificStudet(register))
+                break;
+            case 5:
+                console.log(MoreThanOne(register))
+                break;
+            case 6:
+                console.log(StudentsPerGroup(register))
+                break;
+            case 7:
+                alert("Gracias por usar el programa")
+                flag = false
+                break;
+            default:
+                alert("Opcion no valida")
+                alert("1. Cantidad de estudiantes registrados" 
+                + " " + "2." + " Cantidad de estudiantes por sexo"
+                + " " + "3." + " Promedio total"
+                + " " + "4." + " Estudiante especifico"
+                + " " + "5." + " Estudiantes especificos"
+                + " " + "6." + " Estudiantes por grupos"
+                + " " + "7." + " Salir")
+                break;
+        }
+    }
+}
+
+</script>
